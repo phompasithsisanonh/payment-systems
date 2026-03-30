@@ -43,10 +43,16 @@ export function AuthProvider({ children }) {
     delete api.defaults.headers.common["x-csrf-token"];
   };
   
+  const verify2FA = async (otp) => {
+    const res = await api.post("/auth/2fa/verify", { otp });
+    setUser(res.data.user);
+    setCsrf(res.data.csrfToken); // เซ็ต CSRF header ทันทีหลัง verify 2FA
+    return res.data;
+  };
 
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, verify2FA }}>
       {children}
     </AuthContext.Provider>
   );

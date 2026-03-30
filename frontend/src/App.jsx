@@ -33,7 +33,7 @@ export default function App() {
             <Route path="/deposit/history" element={<DepositHistory />} />
             <Route path="/withdraw" element={<WithdrawForm />} />
             <Route path="/withdraw/confirm" element={<WithdrawConfirm />} />
-            <Route path="/withdraw/otp" element={<WithdrawOTP />} />
+            {/* <Route path="/withdraw/otp" element={<WithdrawOTP />} /> */}
             <Route path="/withdraw/status" element={<WithdrawStatus />} />
             <Route path="/settings/2fa" element={<TotpSetup />} />
           </Route>

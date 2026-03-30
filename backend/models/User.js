@@ -20,6 +20,8 @@ const userSchema = new mongoose.Schema(
     lastLoginAt: Date,
     totpSecret: { type: String, default: null }, // ✅ เพิ่ม
     totpEnabled: { type: Boolean, default: false }, // ✅ เพิ่ม
+    twoFactorTempToken: String, // สำหรับเก็บ hashed temp token ชั่วคราว
+    twoFactorTempTokenExpires: Date, // หมดอายุของ temp token
   },
   { timestamps: true }
 );
