@@ -1,18 +1,16 @@
 version: '3.8'
-
 services:
   backend:
-    build: ./backend
+    build: .
     ports:
-      - "5000:5000"
+      - "3001:3001"
     env_file:
-      - ./backend/.env
+      - .env
     depends_on:
       - redis
     restart: always
     networks:
       - cubixpay-network
-
   redis:
     image: redis:alpine
     ports:
@@ -22,11 +20,8 @@ services:
     restart: always
     networks:
       - cubixpay-network
-
 volumes:
   redis_data:
-
-
 networks:
   cubixpay-network:
     driver: bridge
