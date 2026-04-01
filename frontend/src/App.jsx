@@ -14,6 +14,7 @@ import WithdrawOTP from "./components/WithdrawOTP";
 import WithdrawStatus from "./components/WithdrawStatus";
 import TotpSetup from "./components/TotpSetup";
 import UsersPage from "./pages/UsersPage";
+import AdminSettings from "./pages/AdminSettings";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
             {/* <Route path="/withdraw/otp" element={<WithdrawOTP />} /> */}
             <Route path="/withdraw/status" element={<WithdrawStatus />} />
             <Route path="/settings/2fa" element={<TotpSetup />} />
+            <Route path="/settings/admin" element={<AdminSettings />} />
           </Route>
           <Route element={<ProtectedRoute roles={["superadmin"]} />}>
             <Route path="/users" element={<UsersPage />} />

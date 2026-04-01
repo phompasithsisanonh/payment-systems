@@ -8,7 +8,7 @@ const withdrawSchema = new mongoose.Schema({
   fee: { type: Number, default: 0 },
   bankName: { type: String, required: true },
   bankCardNumber: { type: String, required: true },
-  bankCardHolder: { type: String, required: true },
+  bankCardHolder: { type: String, default: "" },
   status: { type: Number, default: 1 },
   confirmedAt: { type: Date, default: null },
   note: { type: String, default: "" }, // ✅ เพิ่ม note ลงใน schema

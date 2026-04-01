@@ -10,6 +10,7 @@ import TotpSetup from "../components/TotpSetup";
 import UsersPage from "./UsersPage";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { useTheme } from "../hooks/useTheme";
+import AdminSettings from "./AdminSettings";
 
 const MENU = [
   {
@@ -114,6 +115,22 @@ const MENU = [
       </svg>
     ),
   },
+  // {
+  //   key: "settings/admin",
+  //   label: "ตั้งค่า",
+  //   icon: (
+  //     <svg
+  //       width="15"
+  //       height="15"
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       stroke="currentColor"
+  //       strokeWidth="2"
+  //     >
+  //       <path d="M17 21v-2a4 4 0 0 0-3-3.87M9 21v-2a4 4 0 0 1 3-3.87M5 7a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" />
+  //     </svg>
+  //   ),
+  // },
 ];
 
 export default function Home() {
@@ -215,6 +232,7 @@ export default function Home() {
           {tab === "history" && <DepositHistory />}
           {tab === "settings" && <TotpSetup />}
           {tab === "users" && <UsersPage />}
+          {/* {tab === "settings/admin" && <AdminSettings />} */}
         </main>
       </div>
     </div>

@@ -2,19 +2,24 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const BANKS = [
-  { code: "BANGKOK BANK", name: "กรุงเทพ (BBL)" },
-  { code: "Kasikornbank", name: "กสิกรไทย (KBANK)" },
-  { code: "Krung Thai Bank", name: "กรุงไทย (KTB)" },
-  { code: "The Siam Commercial Bank", name: "ไทยพาณิชย์ (SCB)" },
-  { code: "Krungsri", name: "กรุงศรีอยุธยา (BAY)" },
-  { code: "TMBThanachart Bank", name: "ทหารไทยธนชาต (TTB)" },
-  { code: "Government Savings Bank", name: "ออมสิน (GSB)" },
-  { code: "Government Housing Bank", name: "อาคารสงเคราะห์ (GHB)" },
-  {
-    code: "Bank for Agriculture and Agricultural Cooperatives",
-    name: "ธ.ก.ส. (BAAC)",
-  },
-  { code: "CIMB Thai Bank", name: "ซีไอเอ็มบี (CIMB)" },
+  { code: "baac", name: "ธ.ก.ส.", icon: "🌾" },
+  { code: "scb", name: "ไทยพาณิชย์", icon: "🟣" },
+  { code: "krungthai", name: "กรุงไทย", icon: "🐉" },
+  { code: "krungsri", name: "กรุงศรี", icon: "🟡" },
+  { code: "gsb", name: "ออมสิน", icon: "🐷" },
+  { code: "ghbank", name: "ธอส.", icon: "🏠" },
+  { code: "kbank", name: "กสิกรไทย", icon: "🍃" },
+  { code: "seabank", name: "SEA Bank", icon: "🟠" },
+  { code: "ttb", name: "TTB", icon: "🔶" },
+  { code: "tisco", name: "TISCO", icon: "🔵" },
+  { code: "uob", name: "UOB", icon: "🔴" },
+  { code: "citibank", name: "Citibank", icon: "🌐" },
+  { code: "lhbank", name: "LH Bank", icon: "🟨" },
+  { code: "cimb", name: "CIMB Thai", icon: "🔺" },
+  { code: "mizuho", name: "Mizuho Bank", icon: "🔵" },
+  { code: "standard", name: "Standard Chartered", icon: "🏛️" },
+  { code: "icbc", name: "ICBC", icon: "🟥" },
+  { code: "islamic", name: "Islamic Bank", icon: "🌙" },
 ];
 
 const ERROR_MESSAGES = {
@@ -39,7 +44,7 @@ function validate(form) {
   if (!form.bankCardNumber) return "กรุณากรอกเลขบัญชี";
   if (!/^\d{10,15}$/.test(form.bankCardNumber.replace(/-/g, "")))
     return "เลขบัญชีไม่ถูกต้อง (10–15 หลัก)";
-  if (!form.bankCardHolder.trim()) return "กรุณากรอกชื่อเจ้าของบัญชี";
+  // if (!form.bankCardHolder.trim()) return "กรุณากรอกชื่อเจ้าของบัญชี";
   if (!form.amount || amt <= 0) return "กรุณากรอกจำนวนเงินที่ถูกต้อง";
   if (amt < 1) return "จำนวนเงินขั้นต่ำ ฿1";
   return null;
@@ -228,7 +233,7 @@ function AccountPreview({ bankLabel, bankCardHolder, bankCardNumber }) {
         )}
       </div>
       <div>
-        <p style={s.accountName}>{bankCardHolder || "—"}</p>
+        {/* <p style={s.accountName}>{bankCardHolder || "—"}</p> */}
         <p style={s.accountSub}>
           {bankLabel || "ธนาคาร"} · {bankCardNumber || "—"}
         </p>
@@ -272,7 +277,10 @@ export default function WithdrawForm() {
 
   const bankLabel = BANKS.find((b) => b.code === form.bankName)?.name ?? "";
   const showPreview = form.bankCardHolder || form.bankCardNumber;
-
+  const bankOptions = Object.entries(BANKS).map(([code, info]) => ({
+    code,
+    ...info,
+  }));
   return (
     <div style={s.wrap}>
       {/* Page Header */}
@@ -328,9 +336,9 @@ export default function WithdrawForm() {
             onChange={(e) => set("bankName", e.target.value)}
           >
             <option value="">— เลือกธนาคาร —</option>
-            {BANKS.map((b) => (
+            {bankOptions.map((b) => (
               <option key={b.code} value={b.code}>
-                {b.name}
+                {b.icon} {b.name}
               </option>
             ))}
           </select>
@@ -349,14 +357,14 @@ export default function WithdrawForm() {
           }
         />
 
-        <FieldLabel>ชื่อเจ้าของบัญชี</FieldLabel>
+        {/* <FieldLabel>ชื่อเจ้าของบัญชี</FieldLabel>
         <input
           style={s.input}
           type="text"
           placeholder="ชื่อ นามสกุล"
           value={form.bankCardHolder}
           onChange={(e) => set("bankCardHolder", e.target.value)}
-        />
+        /> */}
 
         {showPreview && (
           <AccountPreview
@@ -523,9 +531,9 @@ const s = {
     fontWeight: 400,
     fontFamily: "'IBM Plex Mono', monospace",
     border: "none",
- background: "var(--color-surface)",
+    background: "var(--color-surface)",
     outline: "none",
-   color:"var(--color-text)",
+    color: "var(--color-text)",
     minWidth: 0,
   },
   quickAmounts: {
@@ -541,7 +549,7 @@ const s = {
     fontWeight: 500,
     border: "0.5px solid #ddd",
     borderRadius: 20,
-background: "var(--color-surface)",
+    background: "var(--color-surface)",
     color: "#666",
     cursor: "pointer",
     transition: "all 0.15s",

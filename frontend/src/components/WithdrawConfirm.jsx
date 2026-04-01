@@ -27,7 +27,7 @@ export default function WithdrawConfirm() {
     { label: "จำนวนเงิน", value: `฿${Number(state.amount).toLocaleString("th-TH", { minimumFractionDigits: 2 })}` },
     { label: "ธนาคาร",    value: state.bankName },
     { label: "เลขบัญชี",  value: state.bankCardNumber },
-    { label: "ชื่อบัญชี", value: state.bankCardHolder },
+    // { label: "ชื่อบัญชี", value: state.bankCardHolder },
     { label: "หมายเหตุ",  value: state.note },
   ];
 

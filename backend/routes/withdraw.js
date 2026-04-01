@@ -56,7 +56,7 @@ router.post("/create", requireAuth, async (req, res) => {
     const cleanNote = note?.trim() || "";
 
     // ── Input validation ──────────────────────────────────────────────────
-    if (!cleanBankName || !cleanCardNumber || !cleanCardHolder)
+    if (!cleanBankName || !cleanCardNumber)
       return res.status(400).json({ message: "กรุณากรอกข้อมูลให้ครบ" });
 
     const amountErr = validateAmount(amount);
@@ -68,25 +68,25 @@ router.post("/create", requireAuth, async (req, res) => {
     const noteErr = validateNote(cleanNote);
     if (noteErr) return res.status(400).json({ message: noteErr });
 
-    if (cleanCardHolder.length > 100)
-      return res
-        .status(400)
-        .json({ message: "ชื่อเจ้าของบัญชียาวเกิน 100 ตัวอักษร" });
+    // if (cleanCardHolder.length > 100)
+    //   return res
+    //     .status(400)
+    //     .json({ message: "ชื่อเจ้าของบัญชียาวเกิน 100 ตัวอักษร" });
 
     // ── 2FA verify ───────────────────────────────────────────────────────
-    const user = await User.findById(userId);
-    if (!user?.totpSecret)
-      return res
-        .status(400)
-        .json({ message: "ยังไม่ได้ตั้งค่า Google Authenticator" });
+    // const user = await User.findById(userId);
+    // if (!user?.totpSecret)
+    //   return res
+    //     .status(400)
+    //     .json({ message: "ยังไม่ได้ตั้งค่า Google Authenticator" });
 
-    const valid = speakeasy.totp.verify({
-      secret: user.totpSecret,
-      encoding: "base32",
-      token: totpCode,
-      window: 1,
-    });
-    if (!valid) return res.status(400).json({ message: "รหัส OTP ไม่ถูกต้อง" });
+    // const valid = speakeasy.totp.verify({
+    //   secret: user.totpSecret,
+    //   encoding: "base32",
+    //   token: totpCode,
+    //   window: 1,
+    // });
+    // if (!valid) return res.status(400).json({ message: "รหัส OTP ไม่ถูกต้อง" });
 
     const orderNumber = `WD${Date.now()}${Math.floor(Math.random() * 1000)}`;
 
