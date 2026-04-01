@@ -9,8 +9,12 @@ services:
     depends_on:
       - redis
     restart: always
+    dns:
+      - 8.8.8.8     # Google DNS
+      - 1.1.1.1     # Cloudflare DNS
     networks:
       - cubixpay-network
+
   redis:
     image: redis:alpine
     ports:
@@ -20,8 +24,10 @@ services:
     restart: always
     networks:
       - cubixpay-network
+
 volumes:
   redis_data:
+
 networks:
   cubixpay-network:
     driver: bridge
